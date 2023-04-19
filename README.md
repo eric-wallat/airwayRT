@@ -5,7 +5,7 @@ MATLAB-based scripts to analyze radiation-induced airway changes using VIDA segm
 This function will iterate through the entire 'data' directory and subfolders to re-orient the specified segmentation file back into the reference frame of the CT scan the segmentation was originally derived from. You MUST run this function prior to running analyzeLobes.m.
 
 ## analyzeLobes.m
-This is the main file that calls the other functions for analyzing. To run this script you must have data in the 'data' directory following the example directoy setup provided. Data needed: RTDose in NIFTI format, JacRatio in NIFTI format, preRT Airway Color NIFTI, postRT WARPED Airway Color NIFTI. Remember that any data created from VIDA (i.e. aircolor segmentations) must first be preprocessed using the transformAirway.m function.
+This is the main file that calls the other functions for analyzing. To run this script you must have data in the 'data' directory following the format ./data/IPF###_SCAN#/. Data needed: RTDose in NIFTI format, JacRatio in NIFTI format, preRT Airway Color NIFTI, postRT WARPED Airway Color NIFTI. Remember that any data created from VIDA (i.e. aircolor segmentations) must first be preprocessed using the transformAirway.m function.
 
 ## findTerminalAirways.m
 Finds the correspondence in airway labels between the preRT airway color map and the warped postRT airway color map, as well as the labels corresponding to the terminal airways (i.e. airways that have no further branches)
