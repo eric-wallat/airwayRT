@@ -17,3 +17,10 @@ Calculates the resistance lookup table (rlut) and grabs airway metrics (aichange
 Performs nearest neighbor search for each terminal airway. Output is a lung mask with each voxel assigned the value of the preRT airway segment ID that is closest to it.
 
 Metrics are saved out to resistances.xlsx and dichanges_vol.xlsx. dichanges_vol.xslx contains the variables listed from resistanceCalc2. resistances.xlsx contains the following columns of data for each subject: preRT airway segment ID of terminal airway, preRT cumulative resistance, postRT airway segment ID of corresponding terminal airway, postRT cumulative resistance, resistance ratio (post/pre cumulative resistances).
+
+# How to warp airways
+In order to find correspondance between the postRT and preRT airway labels, you must warp the postRT aircolor map into the reference frame of the preRT scan.
+1. Perform rigid registration between the two scans
+  - {path_to_lungseg-bld}/bin/RigidRegistration preRT_scan_100IN.mask.nii.gz postRT_scan_100IN.mask.nii.gz postRT_aircolor.nii.gz aircolor_rigid.nii.gz mask
+2. Use ANTs to apply transformation (this assumes you already have performed deformable registration between the two images and have the corresponding displacementField.mha file)
+  - antsApplyTransforms -d 3 -r preRT_scan_100IN.nii.gz -t displacementField.mha -i aircolor_rigid.nii.gz -o aircolor_warped.nii.gz -n GenericLabel
